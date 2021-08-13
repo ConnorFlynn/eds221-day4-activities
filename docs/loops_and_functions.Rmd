@@ -1,0 +1,112 @@
+---
+title: "loops_and_functions"
+author: "Connor Flynn"
+date: "8/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Task 1
+
+```{r}
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+transects <- c("TransectA", "TransectB", "TransectC")
+
+for (i in seq_along(weekdays)) {
+  for (j in seq_along(transects)) {
+    print(paste(weekdays[i], "-", transects[j]))
+  }
+}
+
+
+
+```
+
+
+##Task 2
+
+```{r}
+force <- function(m, a) {
+  f <- m * a
+  print(paste("the resulting force is", f, "Newtons" ))
+}
+
+
+force(m = 3, a = 5)
+
+
+```
+Task 3
+```{r}
+name_column <- function(df, number) {
+  if(number < 1 | number > ncol(df))
+    (stop("Cannot find column"))
+  return(colnames(df[number]))}
+
+
+
+
+name_column(df = mtcars, number = 0)
+
+
+```
+Task 4
+```{r}
+fish_parms <- data.frame(sci_name = c("Chanos chanos", "Sphyraena barracuda", "Caranx Ignobli"),
+                         common_name = c("Milkfish", "Great barracuda", "Giant trevally"),
+                         a_est = c(0.0905, 0.0181, 0.0353),
+                         b_est = c(2.52, 3.27, 3.05))
+
+fish_weight <- function(fish_name, tot_length){
+  fish_select <- dplyr::filter(fish_parms, common_name == fish_name)
+    weight <- (fish_select$a_est) * (tot_length^(fish_select$b_est))
+    return(weight)
+}
+  
+fish_weight(fish_name = "Milkfish", tot_length = 5)
+
+
+weights_vec <- seq(from = 0, to = 100, by = 1)
+
+milkfish_weights <- fish_weight(fish_name = "Milkfish", tot_length = weights_vec)
+
+fish_parms
+
+```
+
+Task 5
+```{r}
+wave_power <- function(wave_height, period) {
+  power <- (0.5 * (wave_height ^ 2) * period)
+  return(power)
+}
+
+wave_height <- seq(from = 0, to = 3, by = 0.2)
+
+wave_power(wave_height = wave_height, period = 8)
+```
+Task 6
+
+```{r}
+wave_power <- function(water_depth, wave_height, period) {
+  if(water_depth > 12) {
+    print(power)
+    message("deep water equation was used")
+  }
+  if(water_depth <= 12) {
+    power_shallow <- (0.81 * (wave_height ^ 2) * period)
+      print(power_shallow)
+      message("shallow water equation was used")
+    
+  }
+}
+
+wave_power(4, 3, 16)
+
+```
+
+
